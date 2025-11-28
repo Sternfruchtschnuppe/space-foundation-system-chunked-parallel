@@ -1,11 +1,9 @@
 # Enhancing Performance and Scalability of the Space Foundation System (SFS)
 
-This repository contains selected excerpts of my implementation work for my master’s thesis, which focused on **optimizing the Space Foundation System (SFS)**—a designer-centric spatial abstraction for game worlds—through **chunking and parallelization**.
+This repository contains selected excerpts of my implementation work for my master’s thesis at [TUM](https://www.cit.tum.de/), which focused on **optimizing the Space Foundation System (SFS)**—a designer-centric spatial abstraction for game worlds—through **chunking and parallelization**.
 The SFS builds semantically meaningful regions via a voxelized, multi-seed flood-fill; my task was to make this process scalable and performant for large scenes.
 
 > **Note:** This repository contains only parts of the original implementation. Many dependencies are intentionally omitted; the code is not expected to compile. Its purpose is to showcase my contribution, architecture, and optimization work.
-
-![Alt text](./images/my-image.png)
 
 <p align="center">
   <img src="img/chu.gif" alt="Villa Chunked" width="45%">
@@ -26,20 +24,17 @@ The SFS builds semantically meaningful regions via a voxelized, multi-seed flood
 * **Optimized runtime queries** so that lookup cost becomes effectively constant when chunks are cached.
 * **Improved serialization and data storage** for scalable Editor-time generation.
 
-<figure>
-  <img src="img/voxel_cmp_table.png" alt="Voxel struct comparison" width="500">
-  <figcaption><em>Memory Comparison of VoxelData (original, 38 B) vs. ChunkVoxelData (new, 4.25 B).</em></figcaption>
-</figure>
+<p align="center">
+  <img src="img/voxel_cmp_table.png" alt="Villa Chunked" width="60%">
+  <img src="img/remove_cutoff_voxels.gif" alt="Region Chunked" width="30%">
+</p>
+<p align="center"><em>Cutoff removal process: detection of a Bluecutoff voxel, removal of its volume via BFS, refilling of the affected chunk, and the intermediate result after refilling.</em></p>
 
 <figure>
   <img src="img/t_rtquery_par.png" alt="Runtime Query comparison">
   <figcaption><em>Sequential (left) vs. parallel (right) runtime queries. The parallel method requires only a single ray toward the nearest chunk border, with at most half the chunk size in steps, and handles empty space efficiently with dedicated anchors—at the cost of a higher memory footprint.</em></figcaption>
 </figure>
 
-<figure>
-  <img src="img/remove_cutoff_voxels.gif" alt="Cutoff voxel removal" width="500">
-  <figcaption><em>Cutoff removal process: detection of a Bluecutoff voxel, removal of its volume via BFS, refilling of the affected chunk, and the intermediate result after refilling.</em></figcaption>
-</figure>
 
 ---
 
@@ -55,7 +50,7 @@ Benchmarks were performed across several scenes and resolutions:
 These results demonstrate that the chunked, parallel algorithm makes SFS practical for worlds that previously caused the sequential version to stall or exceed memory limits.
 
 <figure>
-  <img src="img/exec_benchmarks.png" alt="Execution times" width="500">
+  <img src="img/exec_benchmarks.png" alt="Execution times" width="700">
   <figcaption><em>Mean SFS creation times (ms) and corresponding speedups for different scenes, along with processed voxel counts and algorithm iterations (voxel size 0.25, chunk size 16).</em></figcaption>
 </figure>
 
