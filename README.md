@@ -24,11 +24,18 @@ The SFS builds semantically meaningful regions via a voxelized, multi-seed flood
 * **Optimized runtime queries** so that lookup cost becomes effectively constant when chunks are cached.
 * **Improved serialization and data storage** for scalable Editor-time generation.
 
+<figure>
+  <img src="img/voxel_cmp_table.png" alt="Voxel struct comparison" width="700">
+  <figcaption><em>Memory Comparison of VoxelData (original, 38 B) vs. ChunkVoxelData (new, 4.25 B).</em></figcaption>
+</figure>
+
 <p align="center">
-  <img src="img/voxel_cmp_table.png" alt="Villa Chunked" width="60%">
-  <img src="img/remove_cutoff_voxels.gif" alt="Region Chunked" width="30%">
+  <figure>
+    <img src="img/remove_cutoff_voxels.gif" alt="Cutoff voxel removal" width="300">
+    <figcaption><em>Cutoff removal process: detection of a Bluecutoff voxel, removal of its volume via BFS, refilling of the affected chunk, and the intermediate result after refilling.</em></figcaption>
+  </figure>
 </p>
-<p align="center"><em>Cutoff removal process: detection of a Bluecutoff voxel, removal of its volume via BFS, refilling of the affected chunk, and the intermediate result after refilling.</em></p>
+
 
 <figure>
   <img src="img/t_rtquery_par.png" alt="Runtime Query comparison">
